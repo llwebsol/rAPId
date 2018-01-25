@@ -5,7 +5,7 @@ a simple and minimalist framework for php APIs
 Add to your composer.json
 
     "require": {
-        "llwebsol/rAPId": "dev-master"
+        "llwebsol/rapid": "dev-master"
     },
 
     "scripts": {
@@ -39,9 +39,7 @@ Until you add another controller or method, all routes will point to the `index`
 Next update your rAPIdConfig.php
 
 ```
-       define('DEFAULT_CONTROLLER', 'Default');
-
-       define('CONTROLLER_NAMESPACE', 'YourProject\\Controllers');
+       define('DEFAULT_CONTROLLER', YourProject\Controllers\Default::class);
 ```
 
 

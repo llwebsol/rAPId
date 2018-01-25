@@ -30,10 +30,10 @@
         public static function parse($url) {
 
             $full_path = explode('/', $url, 3);
+            $controller_namespace = self::getControllerNamespace();
 
             $controller = $full_path[0];
             $action = array_get($full_path, 1);
-
 
             $a = array_get($full_path, 2);
             if (!empty($a)) {
@@ -41,14 +41,14 @@
             } else {
                 $args = [];
             }
-            if (!class_exists(rtrim(CONTROLLER_NAMESPACE, '\\') . '\\' . studly_case($controller))) {
+            if (!class_exists(rtrim($controller_namespace, '\\') . '\\' . studly_case($controller))) {
                 if (!empty($action)) {
                     $args = merge($action, $args);
                 }
                 $action = $controller;
                 $controller = DEFAULT_CONTROLLER;
             } else {
-                $controller = rtrim(CONTROLLER_NAMESPACE, '\\') . '\\' . studly_case($controller);
+                $controller = rtrim($controller_namespace, '\\') . '\\' . studly_case($controller);
             }
 
             if (method_exists($controller, camel_case($action))) {
@@ -61,6 +61,12 @@
             }
 
             return new self($controller, $action, $args);
+        }
+
+        private static function getControllerNamespace() {
+            $class = new \ReflectionClass(DEFAULT_CONTROLLER);
+
+            return $class->getNamespaceName();
         }
 
 
