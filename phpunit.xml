@@ -1,0 +1,14 @@
+<phpunit
+        bootstrap="phpunit_autoload.php"
+>
+    <testsuites>
+        <testsuite name="rAPId Tests">
+            <directory suffix="Test.php">./src/Tests</directory>
+        </testsuite>
+    </testsuites>
+    <filter>
+        <whitelist processUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">./</directory>
+        </whitelist>
+    </filter>
+</phpunit>

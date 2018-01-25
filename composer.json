@@ -1,0 +1,23 @@
+{
+  "name": "llwebsol/rapid",
+  "description": "A simple and minimalist framework for php APIs",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Chris",
+      "email": "chris@landlordwebsolutions.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "rAPId\\": "src/"
+    },
+    "files": [
+      "src/helpers.php"
+    ]
+  },
+  "require": {
+    "phpunit/phpunit": "^6"
+  }
+}
