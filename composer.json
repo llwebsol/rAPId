@@ -3,6 +3,9 @@
   "description": "A simple and minimalist framework for php APIs",
   "type": "library",
   "license": "MIT",
+  "bin": [
+    "bin/rAPId"
+  ],
   "authors": [
     {
       "name": "Chris",

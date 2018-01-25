@@ -1,0 +1,37 @@
+#!/usr/bin/env php
+<?php
+
+    // Copy contents of rAPId 'require' dir to main project folder
+    $host_dir = 'vendor/llwebsol/rapid/require/';
+
+    copy($host_dir . '.htaccess', '.htaccess');
+    copy($host_dir . 'index.php', 'index.php');
+    if (!file_exists('rAPIdConfig.php')) {
+        copy($host_dir . 'rAPIdConfig.php', 'rAPIdConfig.php');
+    }
+
+    // Create the Controllers directory
+	// If this projects has a src/ directory it should be in there
+    if (is_dir('src') && !is_dir('src/Controllers')) {
+        mkdir('src/Controllers');
+    } else if (!is_dir('src') && !is_dir('Controllers')) {
+        mkdir('Controllers');
+    }
+
+    // Update composer.json to autoload the rAPId config
+    $composer_config = file_get_contents('composer.json');
+    $composer_config = json_decode($composer_config, true);
+
+
+    if (!array_key_exists('autoload', $composer_config)) {
+        $composer_config['autoload'] = [];
+    }
+    if (!array_key_exists('files', $composer_config['autoload'])) {
+        $composer_config['autoload']['files'] = [];
+    }
+
+    if (!in_array('rAPIdConfig.php',$composer_config['autoload']['files'])) {
+        $composer_config['autoload']['files'][] = 'rAPIdConfig.php';
+    }
+
+    file_put_contents('composer.json', json_encode($composer_config,JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
