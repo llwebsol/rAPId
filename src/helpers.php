@@ -48,7 +48,7 @@
          * @return string
          */
         function studly_case($str) {
-            $words = str_replace('_', ' ', $str);
+            $words = str_replace(['_', '-'], ' ', $str);
 
             return str_replace(' ', '', ucwords($words));
         }
