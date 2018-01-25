@@ -2,8 +2,6 @@
 
     namespace rAPId\Foundation;
 
-    use rAPId\Data\Serializer;
-
     class Response
     {
         private $value;
@@ -14,7 +12,11 @@
 
         public function output() {
             if (!empty($this->value)) {
+                
+                /* @var \rAPId\Data\Serializer $serializer */
                 $serializer = OUTPUT_SERIALIZER;
+
+                header($serializer::getHttpHeader());
                 echo $serializer::serialize($this->value);
             }
         }

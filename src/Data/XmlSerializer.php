@@ -24,6 +24,15 @@
             return self::xml_to_array($serialized_string);
         }
 
+        /**
+         * Get the correct HTTP header for the given serialized output
+         *
+         * @return string
+         */
+        public static function getHttpHeader() {
+            return 'Content-type: text/xml; charset=utf-8';
+        }
+
         private static function xml_to_array($xml) {
             $result = simplexml_load_string($xml, 'SimpleXMLElement', LIBXML_NOCDATA);
             $result = json_decode(json_encode((array)$result), true);

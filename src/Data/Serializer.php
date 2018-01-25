@@ -19,4 +19,11 @@
          * @return mixed
          */
         public static function deserialize($serialized_string);
+
+        /**
+         * Get the correct HTTP header for the given serialized output
+         *
+         * @return string
+         */
+        public static function getHttpHeader();
     }

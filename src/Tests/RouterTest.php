@@ -37,6 +37,8 @@
          * @param string $url
          * @param array  $expected_response
          *
+         * @runInSeparateProcess
+         *
          * @throws \rAPId\Exceptions\InvalidUrlException
          */
         public function testResolve($url, $get_params, $post_params, array $expected_response) {

@@ -14,7 +14,7 @@ Add to your composer.json
 
 Now after running `composer update` the necessary files should be automatically added to your projects root directory.
 
-Add a new file to the new `Controllers` that was added (it may be in src/Controllers)
+Add a new file to the new `Controllers` directory that was added (it may be in src/Controllers)
 
 ### Example default controller
 **(src/Controllers/Default.php)**:
@@ -125,3 +125,14 @@ Similar to a GET request with query parameters, undefined parameter keys will be
     - This is the same for POST parameters
 - The query string will be ignored for POST requests
     - So a POST request to `http://www-your-project-url.com/something-else/get-data?a_var=11&another_var=76` without any data in the POST will output "A Var: Not Defined, Another Var: Not Defined";
+
+## Output
+
+Anything that you return from a controller will be serialized and returned to the user with the correct header
+
+If nothing is returned from your controller method, then nothing will be output in this way.
+If you wish to serve an image, handle outputting that image yourself, and don't return anything from your controller
+
+The type of serialized output that your API returns is determined by the `OUTPUT_SERIALIZER` constant provided in your `rAPIdConfig.php`
+
+Json and XML are currently supported. If you wish to output some other kind of data, you can write your own serializer that implements `rAPId\Data\Serializer`, then feel free to submit a pull request!
