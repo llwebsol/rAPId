@@ -145,23 +145,23 @@
 
         if (!function_exists('get_object_as_array')) {
             /**
+             * Return an array of all public properties of an object
+             *
              * @param object $obj
              *
              * @return array
              */
             function get_object_as_array($obj) {
-                $class = new \ReflectionClass($obj);
-                $result = [];
-                foreach ($class->getProperties(\ReflectionProperty::IS_PUBLIC) as $property) {
-                    $val = $obj->{$property->name};
-                    if (is_object($val)) {
-                        $val = get_object_as_array($val);
+                $array = (array)$obj;
+                foreach ($array as $key => $value) {
+                    // Private and protected property names contain "\0"
+                    // when cast to array. Discard them here
+                    if (strpos($key, "\0") !== false) {
+                        unset($array[ $key ]);
                     }
-                    $result[ $property->name ] = $val;
-
                 }
 
-                return $result;
+                return $array;
             }
         }
     }
