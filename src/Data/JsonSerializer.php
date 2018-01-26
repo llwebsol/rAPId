@@ -39,7 +39,7 @@
                 $data = get_object_as_array($data);
             }
 
-            return json_encode($data);
+            return json_encode($data, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
         }
 
     }

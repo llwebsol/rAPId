@@ -37,3 +37,10 @@
             return ['x' => $x, 'y' => $y];
         }
     }
+
+    class TestClass
+    {
+        protected $x = 76;
+        public    $y = 100;
+        private   $z = 11;
+    }
