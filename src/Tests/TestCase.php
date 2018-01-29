@@ -19,6 +19,10 @@
         public function index($argument = '') {
             return 'ok';
         }
+
+        public function anotherMethod() {
+            return 'In Another Method';
+        }
     }
 
     class SomeOtherController implements Controller

@@ -9,6 +9,7 @@
         public function urlProvider() {
             return [
                 'Empty Route'                                    => ['', DEFAULT_CONTROLLER, 'index', []],
+                'Function in Default Controller'                 => ['another-method', DEFAULT_CONTROLLER, 'anotherMethod', []],
                 'Controller Only'                                => ['some_other_controller', SomeOtherController::class, 'index', []],
                 'Pass Image Name to Index of Default Controller' => ['some_image_path.jpg', DEFAULT_CONTROLLER, 'index', ['some_image_path.jpg']],
                 'Controller with Action'                         => ['some_other_controller/an_action', SomeOtherController::class, 'anAction', []],
