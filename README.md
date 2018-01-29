@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/llwebsol/rAPId.svg?branch=master)](https://travis-ci.org/llwebsol/rAPId)
+
 # rAPId
 a simple and minimalist framework for php APIs
 
