@@ -14,11 +14,11 @@
         /**
          * Deserialize a json/xml string to an array
          *
-         * @param string $serialized_string
+         * @param string $xml_string
          *
          * @return mixed
          */
-        public static function deserialize($serialized_string);
+        public static function deserialize($xml_string);
 
         /**
          * Get the correct HTTP header for the given serialized output

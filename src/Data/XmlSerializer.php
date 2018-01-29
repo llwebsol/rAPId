@@ -2,26 +2,37 @@
 
     namespace rAPId\Data;
 
+    use SimpleXMLElement;
+
     class XmlSerializer implements Serializer
     {
+        const DEFAULT_ROOT_NODE = 'response';
+
         /**
          * @param mixed $data
          *
          * @return mixed|string
          */
         public static function serialize($data) {
-            return self::convert_to_xml($data);
+            $root_node = self::getRootNode($data);
+            if (is_object($data)) {
+                $data = get_object_as_array($data);
+            }
+
+            return self::buildXml($data, $root_node);
         }
 
         /**
          * Deserialize a json/xml string to an array
          *
-         * @param string $serialized_string
+         * @param string $xml_string
          *
          * @return mixed
          */
-        public static function deserialize($serialized_string) {
-            return self::xml_to_array($serialized_string);
+        public static function deserialize($xml_string) {
+            $simple_xml = simplexml_load_string($xml_string);
+
+            return self::simpleXmlToArray($simple_xml);
         }
 
         /**
@@ -33,45 +44,165 @@
             return 'Content-type: text/xml; charset=utf-8';
         }
 
-        private static function xml_to_array($xml) {
-            $result = simplexml_load_string($xml, 'SimpleXMLElement', LIBXML_NOCDATA);
-            $result = json_decode(json_encode((array)$result), true);
+        /**
+         * If $data is an object, uses the class name
+         * otherwise uses the default
+         *
+         * @param mixed $data
+         *
+         * @return string $root_node
+         */
+        private static function getRootNode($data) {
+            $root_note = static::DEFAULT_ROOT_NODE;
 
-            foreach ($result as $k => $value) {
-                if (empty($value)) {
-                    $result[ $k ] = null;
+            if (is_object($data)) {
+                $r = new \ReflectionClass($data);
+                $class_name = $r->getShortName();
+                $root_note = snake_case($class_name);
+            }
+
+            return $root_note;
+        }
+
+        /**
+         * @param SimpleXMLElement $xml
+         *
+         * @return array|mixed
+         */
+        private static function simpleXmlToArray(SimpleXMLElement $xml) {
+
+            $array = json_decode(json_encode($xml), true);
+
+            $array = self::ensureAttributes($array, $xml);
+            $array = self::fixNullNodes($array);
+
+            // In the case of <node>76</node>
+            // just return 76
+            if (count($array) == 1 && key($array) === 0) {
+                return $array[0];
+            }
+
+            return $array;
+        }
+
+        /**
+         * Calling json encode/decode on SimpleXml can result in missing attributes
+         * This function recursively checks all simpleXml nodes for attributes and adds them
+         * to the deserialized xml array
+         *
+         * @param array            $deserialized_xml
+         * @param SimpleXMLElement $simple_xml
+         *
+         * @return array
+         */
+        private static function ensureAttributes(array $deserialized_xml, SimpleXMLElement $simple_xml) {
+            foreach ($simple_xml as $node) {
+                if (count($node->children()) == 0) {
+                    if ($node->attributes() && !isset($deserialized_xml[ $node->getName() ]['@attributes'])) {
+                        if (!is_array($deserialized_xml[ $node->getName() ])) {
+                            $deserialized_xml[ $node->getName() ] = [$deserialized_xml[ $node->getName() ]];
+                        }
+
+                        $attributes = (array)$node->attributes();
+                        $deserialized_xml[ $node->getName() ]['@attributes'] = $attributes['@attributes'];
+                    }
+                } else {
+                    $deserialized_xml[ $node->getName() ] = self::ensureAttributes($deserialized_xml[ $node->getName() ], $node);
                 }
             }
 
-            return $result;
+            return $deserialized_xml;
         }
 
+        /**
+         * json encode/decode results in <node/> being converted to [ 'node' => [] ]
+         * when our expected behaviour is [ 'node' => null ]
+         *
+         * @param array $array
+         *
+         * @return array
+         */
+        private static function fixNullNodes(array $array) {
+            foreach ($array as $k => $value) {
+                if (empty($value)) {
+                    $array[ $k ] = null;
+                } else if (is_array($value)) {
+                    $array[ $k ] = self::fixNullNodes($value);
+                }
+            }
+
+            return $array;
+        }
 
         /**
-         * @param mixed $data
+         * @param mixed       $data
+         * @param string|null $parent_node
+         * @param null        $attributes [optional]
          *
          * @return string
          */
-        private static function convert_to_xml($data) {
-
-            $root_node = '<response/>';
-            if (is_object($data)) {
-                $data = get_object_as_array($data);
-                $root_node = '<' . get_class(snake_case($data)) . '/>';
-            } else if (!is_array($data) && !empty($data)) {
-                $data = [$data];
-            } else if (empty($data)) {
-                $data = [];
+        private static function buildXml($data, $parent_node, $attributes = null) {
+            if (!is_array($data)) {
+                return self::wrapNode($parent_node, $data, $attributes);
             }
 
-            $xml = new \SimpleXMLElement($root_node);
-            foreach ($data as $k => $v) {
-                if (is_array($v)) {
-                    $v = self::convert_to_xml($v);
+            $result = '';
+            $attributes = self::getAttributesString(array_get($data, '@attributes', []));
+            unset($data['@attributes']);
+
+            foreach ($data as $key => $value) {
+                if (is_numeric($key)) {
+                    $result .= self::buildXml($value, null, $attributes);
+                } else {
+                    $result .= self::buildXml($value, $key);
                 }
-                $xml->addChild($k, $v);
             }
 
-            return $xml->asXML();
+            return self::wrapNode($parent_node, $result, $attributes);
+        }
+
+        /**
+         * Wrap $content in an xml node
+         * ie <node attrName="attrVal">content</node>
+         *
+         * @param string $name
+         * @param string $content
+         * @param string $attributes
+         *
+         * @return null|string
+         */
+        private static function wrapNode($name, $content = null, $attributes = '') {
+            if (empty($name)) {
+                return $content;
+            }
+
+            $node = "<$name";
+            if ($attributes) {
+                $node .= ' ' . trim($attributes);
+            }
+
+            if (empty($content)) {
+                return $node . '/>';
+            }
+
+            return $node . '>' . $content . "</$name>";
+        }
+
+        /**
+         * @param array $attributes
+         *
+         * @return null|string
+         */
+        private static function getAttributesString(array $attributes) {
+            if (empty($attributes)) {
+                return null;
+            }
+            $result = '';
+            foreach ($attributes as $k => $v) {
+                $result .= $k . '="' . $v . '" ';
+            }
+
+
+            return $result;
         }
     }
