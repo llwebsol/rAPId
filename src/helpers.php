@@ -74,13 +74,11 @@
          * @return null|string|string[]
          */
         function snake_case($str) {
-            $str = strtolower($str);
-            if (strpos($str, '_') !== false) {
-                $str = preg_replace('/\s+/u', '', ucwords($str));
-                $str = preg_replace('/(.)(?=[A-Z])/u', '$1_', $str);
-            }
 
-            return $str;
+            $str = str_replace(['-', ' '], '_', $str);
+            $str = preg_replace('/(.)(?=[A-Z])/u', '$1_', $str);
+
+            return strtolower($str);
         }
     }
 
