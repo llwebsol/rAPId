@@ -1,4 +1,7 @@
 [![Build Status](https://travis-ci.org/llwebsol/rAPId.svg?branch=master)](https://travis-ci.org/llwebsol/rAPId)
+[![Latest Stable Version](https://poser.pugx.org/llwebsol/rapid/v/stable)](https://packagist.org/packages/llwebsol/rapid)
+[![Total Downloads](https://poser.pugx.org/llwebsol/rapid/downloads)](https://packagist.org/packages/llwebsol/rapid)
+[![License](https://poser.pugx.org/llwebsol/rapid/license)](https://packagist.org/packages/llwebsol/rapid)
 
 # rAPId
 a simple and minimalist framework for php APIs
