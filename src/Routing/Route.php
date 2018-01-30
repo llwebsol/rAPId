@@ -30,39 +30,45 @@
          * @return Route
          */
         public static function parse($url) {
+            list($controller, $action, $args) = self::splitUrl($url);
 
+            $fully_qualified_controller = self::getControllerNamespace() . '\\' . studly_case($controller);
+
+            // If the controller doesn't exist, it could be the name of a method for the default controller
+            if (!class_exists($fully_qualified_controller)) {
+                $args = merge_non_empty($action, $args);
+                $action = $controller;
+                $fully_qualified_controller = Config::val('default_controller');
+            }
+
+            $action_method = camel_case($action);
+
+            // If $action is not a method in the controller, add it to the args
+            if (!method_exists($fully_qualified_controller, $action_method)) {
+                $args = merge_non_empty($action, $args);
+                $action_method = 'index';
+            }
+
+            return new self($fully_qualified_controller, $action_method, $args);
+        }
+
+        /**
+         * @param string $url
+         *
+         * @return array [$controller,$action,$args]
+         */
+        private static function splitUrl($url) {
             $full_path = explode('/', $url, 3);
-            $controller_namespace = self::getControllerNamespace();
 
             $controller = $full_path[0];
             $action = array_get($full_path, 1);
 
-            $a = array_get($full_path, 2);
-            if (!empty($a)) {
-                $args = explode('/', $a);
-            } else {
-                $args = [];
-            }
-            if (!class_exists(rtrim($controller_namespace, '\\') . '\\' . studly_case($controller))) {
-                if (!empty($action)) {
-                    $args = merge($action, $args);
-                }
-                $action = $controller;
-                $controller = Config::val('default_controller');
-            } else {
-                $controller = rtrim($controller_namespace, '\\') . '\\' . studly_case($controller);
+            $args = [];
+            if (!empty(array_get($full_path, 2))) {
+                $args = explode('/', $full_path[2]);
             }
 
-            if (method_exists($controller, camel_case($action))) {
-                $action = camel_case($action);
-            } else {
-                if (!empty($action)) {
-                    $args = merge($action, $args);
-                }
-                $action = 'index';
-            }
-
-            return new self($controller, $action, $args);
+            return [$controller, $action, $args];
         }
 
         private static function getControllerNamespace() {
