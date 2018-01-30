@@ -6,7 +6,7 @@
 
     copy($host_dir . '.htaccess', '.htaccess');
     copy($host_dir . 'index.php', 'index.php');
-    if (!file_exists('rAPIdConfig.php')) {
+    if (!file_exists('rAPIdConfig.php') || !is_array(include 'rAPIdConfig.php')) {
         copy($host_dir . 'rAPIdConfig.php', 'rAPIdConfig.php');
     }
 

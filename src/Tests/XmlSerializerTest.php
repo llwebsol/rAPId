@@ -2,7 +2,7 @@
 
     namespace rAPId\Tests;
 
-    use rAPId\Data\XmlSerializer;
+    use rAPId\Data\Serialization\XmlSerializer;
 
     class XmlSerializerTest extends TestCase
     {

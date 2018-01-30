@@ -2,6 +2,8 @@
 
     namespace rAPId\Routing;
 
+    use rAPId\Config\Config;
+
     class Route
     {
         private $controller;
@@ -46,7 +48,7 @@
                     $args = merge($action, $args);
                 }
                 $action = $controller;
-                $controller = DEFAULT_CONTROLLER;
+                $controller = Config::val('default_controller');
             } else {
                 $controller = rtrim($controller_namespace, '\\') . '\\' . studly_case($controller);
             }
@@ -64,7 +66,7 @@
         }
 
         private static function getControllerNamespace() {
-            $class = new \ReflectionClass(DEFAULT_CONTROLLER);
+            $class = new \ReflectionClass(Config::val('default_controller'));
 
             return $class->getNamespaceName();
         }

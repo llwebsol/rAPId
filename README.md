@@ -49,7 +49,7 @@ Until you add another controller or method, all routes will point to the `index`
 Next update your rAPIdConfig.php
 
 ```
-       define('DEFAULT_CONTROLLER', YourProject\Controllers\Main::class);
+       'default_controller' => YourProject\Controllers\Main::class,
 ```
 
 
@@ -198,6 +198,6 @@ Anything that you return from a controller will be serialized and returned to th
 If nothing is returned from your controller method, then nothing will be output in this way.
 If you wish to serve an image, handle outputting that image yourself, and don't return anything from your controller
 
-The type of serialized output that your API returns is determined by the `OUTPUT_SERIALIZER` constant provided in your `rAPIdConfig.php`
+The type of serialized output that your API returns is determined by the `output_serializer` variable in your `rAPIdConfig.php`
 
 Json and XML are currently supported. If you wish to output some other kind of data, you can write your own serializer that implements `rAPId\Data\Serialization\Serializer`, then feel free to submit a pull request!

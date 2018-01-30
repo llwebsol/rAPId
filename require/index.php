@@ -1,12 +1,20 @@
 <?php
 
+    use rAPId\Config\Config;
+    use rAPId\Exceptions\InvalidUrlException;
+    use rAPId\Routing\Router;
+
     require 'vendor/autoload.php';
 
+    Config::load('rAPIdConfig.php');
+
     try {
-        $response = \rAPId\Routing\Router::resolve($_GET['url']);
-    } catch (\rAPId\Exceptions\InvalidUrlException $exception) {
+        $response = Router::resolve($_GET['url']);
+    } catch (InvalidUrlException $exception) {
+
         http_response_code(404);
-        include(ERROR_404_PAGE);
+        $error_page = Config::val('error_404_page');
+        include "$error_page";
         die;
     }
 

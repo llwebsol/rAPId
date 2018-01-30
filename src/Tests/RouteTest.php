@@ -2,16 +2,22 @@
 
     namespace rAPId\Tests;
 
+    use rAPId\Config\Config;
     use rAPId\Routing\Route;
 
     class RouteTest extends TestCase
     {
         public function urlProvider() {
             return [
-                'Empty Route'                                    => ['', DEFAULT_CONTROLLER, 'index', []],
-                'Function in Default Controller'                 => ['another-method', DEFAULT_CONTROLLER, 'anotherMethod', []],
+                'Empty Route'                                    => ['', Config::val('default_controller'), 'index', []],
+                'Function in Default Controller'                 => ['another-method', Config::val('default_controller'), 'anotherMethod', []],
                 'Controller Only'                                => ['some_other_controller', SomeOtherController::class, 'index', []],
-                'Pass Image Name to Index of Default Controller' => ['some_image_path.jpg', DEFAULT_CONTROLLER, 'index', ['some_image_path.jpg']],
+                'Pass Image Name to Index of Default Controller' => [
+                    'some_image_path.jpg',
+                    Config::val('default_controller'),
+                    'index',
+                    ['some_image_path.jpg']
+                ],
                 'Controller with Action'                         => ['some_other_controller/an_action', SomeOtherController::class, 'anAction', []],
                 'Controller with 1 Arg to Default Action'        => [
                     'some_other_controller/testArg',

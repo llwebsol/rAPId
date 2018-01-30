@@ -2,7 +2,7 @@
 
     namespace rAPId\Tests;
 
-    use rAPId\Data\JsonSerializer;
+    use rAPId\Data\Serialization\JsonSerializer;
 
     class JsonSerializerTest extends TestCase
     {

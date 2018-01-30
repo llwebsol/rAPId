@@ -9,13 +9,13 @@
          *  * Must implement rAPId\Foundation\Controller
          */
 
-        'default_controller' => '',
+        'default_controller' => 'rAPId\Tests\TestDefaultController',
 
         /**
          * Invalid requests will result in this page and a 404 response
          */
 
-        'error_404_page' => 'vendor/llwebsol/rapid/src/404.html',
+        'error_404_page' => 'src/404.html',
 
 
         /**
@@ -29,4 +29,8 @@
 
         'output_serializer' => \rAPId\Data\Serialization\JsonSerializer::class,
 
+        /**
+         * Added for testing purposes
+         */
+        'test_load_success' => 'SUCCESS'
     ];

@@ -2,6 +2,7 @@
 
     namespace rAPId\Tests;
 
+    use rAPId\Config\Config;
     use rAPId\Data\Serializer;
     use rAPId\Routing\Router;
 
@@ -60,7 +61,7 @@
             Router::resolve($url)->output();
             $response = ob_get_clean();
 
-            $serializer = OUTPUT_SERIALIZER;
+            $serializer = Config::val('output_serializer');
             $response = $serializer::deserialize($response);
 
             $this->assertEquals($expected_response, $response);
