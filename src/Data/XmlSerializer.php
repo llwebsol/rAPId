@@ -137,7 +137,7 @@
         /**
          * @param mixed       $data
          * @param string|null $parent_node
-         * @param null        $attributes [optional]
+         * @param string      $attributes [optional]
          *
          * @return string
          */

@@ -26,7 +26,7 @@
          *
          * @param array  $array
          * @param string $key
-         * @param null   $default
+         * @param mixed  $default
          *
          * @return mixed|null
          */
