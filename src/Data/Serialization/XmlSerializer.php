@@ -98,20 +98,30 @@
         private static function ensureAttributes(array $deserialized_xml, SimpleXMLElement $simple_xml) {
             foreach ($simple_xml as $node) {
                 if (count($node->children()) == 0) {
-                    if ($node->attributes() && !isset($deserialized_xml[ $node->getName() ]['@attributes'])) {
-                        if (!is_array($deserialized_xml[ $node->getName() ])) {
-                            $deserialized_xml[ $node->getName() ] = [$deserialized_xml[ $node->getName() ]];
-                        }
-
-                        $attributes = (array)$node->attributes();
-                        $deserialized_xml[ $node->getName() ]['@attributes'] = $attributes['@attributes'];
-                    }
+                    $attributes = (array)$node->attributes();
+                    $deserialized_xml = self::addAttributesToXmlArray($deserialized_xml, $node->getName(), $attributes);
                 } else {
                     $deserialized_xml[ $node->getName() ] = self::ensureAttributes($deserialized_xml[ $node->getName() ], $node);
                 }
             }
 
             return $deserialized_xml;
+        }
+
+        /**
+         * @param array  $xml
+         * @param string $name
+         * @param array  $attributes
+         *
+         * @return array $xml
+         */
+        private static function addAttributesToXmlArray(array $xml, $name, array $attributes) {
+            if (!empty($attributes) && !isset($xml[ $name ]['@attributes'])) {
+                $xml[ $name ] = array_wrap($xml[ $name ]);
+                $xml[ $name ]['@attributes'] = $attributes['@attributes'];
+            }
+
+            return $xml;
         }
 
         /**
