@@ -29,9 +29,5 @@
     if (!array_key_exists('files', $composer_config['autoload'])) {
         $composer_config['autoload']['files'] = [];
     }
-
-    if (!in_array('rAPIdConfig.php',$composer_config['autoload']['files'])) {
-        $composer_config['autoload']['files'][] = 'rAPIdConfig.php';
-    }
-
+    
     file_put_contents('composer.json', json_encode($composer_config,JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
