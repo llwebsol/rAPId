@@ -1,5 +1,8 @@
 [![Build Status](https://travis-ci.org/llwebsol/rAPId.svg?branch=master)](https://travis-ci.org/llwebsol/rAPId)
 [![Latest Stable Version](https://poser.pugx.org/llwebsol/rapid/v/stable)](https://packagist.org/packages/llwebsol/rapid)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/llwebsol/rAPId/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/llwebsol/rAPId/?branch=master)
+[![Code Intelligence Status](https://scrutinizer-ci.com/g/llwebsol/rAPId/badges/code-intelligence.svg?b=master)](https://scrutinizer-ci.com/code-intelligence)
+
 [![Total Downloads](https://poser.pugx.org/llwebsol/rapid/downloads)](https://packagist.org/packages/llwebsol/rapid)
 [![License](https://poser.pugx.org/llwebsol/rapid/license)](https://packagist.org/packages/llwebsol/rapid)
 
