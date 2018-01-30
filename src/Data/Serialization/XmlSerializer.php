@@ -1,6 +1,6 @@
 <?php
 
-    namespace rAPId\Data;
+    namespace rAPId\Data\Serialization;
 
     use SimpleXMLElement;
 

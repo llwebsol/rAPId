@@ -200,4 +200,4 @@ If you wish to serve an image, handle outputting that image yourself, and don't 
 
 The type of serialized output that your API returns is determined by the `OUTPUT_SERIALIZER` constant provided in your `rAPIdConfig.php`
 
-Json and XML are currently supported. If you wish to output some other kind of data, you can write your own serializer that implements `rAPId\Data\Serializer`, then feel free to submit a pull request!
+Json and XML are currently supported. If you wish to output some other kind of data, you can write your own serializer that implements `rAPId\Data\Serialization\Serializer`, then feel free to submit a pull request!

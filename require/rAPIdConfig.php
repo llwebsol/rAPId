@@ -22,4 +22,4 @@
      *  - rAPId\Data\JsonSerializer
      *  - rAPId\Data\XmlSerializer
      */
-    define('OUTPUT_SERIALIZER', \rAPId\Data\JsonSerializer::class);
+    define('OUTPUT_SERIALIZER', \rAPId\Data\Serialization\JsonSerializer::class);
