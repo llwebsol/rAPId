@@ -109,9 +109,8 @@
             $result = [];
             foreach ($vars as $arr) {
                 if (is_null($arr)) continue;
-                if (!is_array($arr)) {
-                    $arr = [$arr];
-                }
+
+                $arr = array_wrap($arr);
                 $result = array_merge($result, $arr);
             }
 
