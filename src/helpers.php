@@ -162,4 +162,32 @@
                 return $array;
             }
         }
+
+        if (!function_exists('array_wrap')) {
+            /**
+             * If the given value is not an array
+             * it will be returned wrapped in an array
+             *
+             * If the value is already an array it will
+             * be returned as is
+             *
+             * If the value is null, an empty array will
+             * be returned
+             *
+             * @param mixed $value
+             *
+             * @return array
+             */
+            function array_wrap($value) {
+                if (is_null($value)) {
+                    return [];
+                }
+
+                if (is_array($value)) {
+                    return $value;
+                }
+
+                return [$value];
+            }
+        }
     }
