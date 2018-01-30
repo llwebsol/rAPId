@@ -4,6 +4,7 @@
 
     use rAPId\Exceptions\InvalidUrlException;
     use rAPId\Foundation\Response;
+    use ReflectionMethod;
 
     class Router
     {
@@ -29,25 +30,50 @@
             return new Response($response);
         }
 
+        /**
+         * Returns an array of arguments
+         * in the order that they are to be called in the controller method
+         *
+         * @param Route $route
+         *
+         * @return array $args
+         */
         private static function getMethodSpecificArgs(Route $route) {
-            $route_args = $route->getArgs();
-            $reflection_method = new \ReflectionMethod($route->getController(), $route->getAction());
-            $parameters = $reflection_method->getParameters();
 
-            $request_args = $_SERVER['REQUEST_METHOD'] === 'POST' ? $_POST : $_GET;
+            $parameters = self::getControllerMethodParameters($route->getController(), $route->getAction());
+            $route_args = $route->getArgs();
+            $request_args = self::getRequestArgs();
 
             $ordered_arguments = [];
             foreach ($parameters as $parameter) {
-                $key = $parameter->name;
-                if (array_key_exists($key, $request_args)) {
-                    $ordered_arguments[] = $request_args[ $key ];
-                } else if (!empty($route_args)) {
-                    $ordered_arguments[] = array_shift($route_args);
-                } else {
-                    $ordered_arguments[] = null;
+
+                $value = array_get($request_args, $parameter->name);
+                if (!array_key_exists($parameter->name, $request_args)) {
+                    $value = array_shift($route_args);
                 }
+
+                $ordered_arguments[] = $value;
             }
 
             return $ordered_arguments;
+        }
+
+        /**
+         * @param string $controller
+         * @param string $method
+         *
+         * @return \ReflectionParameter[]
+         */
+        private static function getControllerMethodParameters($controller, $method) {
+            $reflection_method = new ReflectionMethod($controller, $method);
+
+            return $reflection_method->getParameters();
+        }
+
+        /**
+         * @return array
+         */
+        private static function getRequestArgs() {
+            return $_SERVER['REQUEST_METHOD'] === 'POST' ? $_POST : $_GET;
         }
     }
