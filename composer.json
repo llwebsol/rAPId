@@ -20,14 +20,8 @@
       "src/helpers.php"
     ]
   },
-  "repositories": [
-    {
-      "type": "path",
-      "url": "~/dev/EasyDb"
-    }
-  ],
   "require": {
-    "llwebsol/EasyDb": "dev-master",
+    "llwebsol/easy-db": "dev-master",
     "vlucas/phpdotenv": "^2.4"
   },
   "require-dev": {

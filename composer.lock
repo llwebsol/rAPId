@@ -4,16 +4,21 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "db0668d71a403718ad614c5278bedbc4",
+    "content-hash": "0d1cf42e498895b0ef5c79018177fbe5",
     "packages": [
         {
-            "name": "llwebsol/EasyDb",
+            "name": "llwebsol/easy-db",
             "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/llwebsol/EasyDB.git",
+                "reference": "1cf256975315f690d51f2218d188cb792ea52d19"
+            },
             "dist": {
-                "type": "path",
-                "url": "/home/chris/dev/EasyDb",
-                "reference": "5bab098195018618a8966f95d92107c21220da0e",
-                "shasum": null
+                "type": "zip",
+                "url": "https://api.github.com/repos/llwebsol/EasyDB/zipball/1cf256975315f690d51f2218d188cb792ea52d19",
+                "reference": "1cf256975315f690d51f2218d188cb792ea52d19",
+                "shasum": ""
             },
             "type": "library",
             "autoload": {
@@ -21,6 +26,7 @@
                     "EasyDb\\": "src/"
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -30,7 +36,8 @@
                     "email": "chris@landlordwebsolutions.com"
                 }
             ],
-            "description": "A Wrapper for PDO"
+            "description": "A Wrapper for PDO",
+            "time": "2018-02-26T21:13:37+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
@@ -1545,7 +1552,7 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "llwebsol/easydb": 20
+        "llwebsol/easy-db": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
