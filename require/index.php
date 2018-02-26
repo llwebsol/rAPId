@@ -6,7 +6,7 @@
 
     require 'vendor/autoload.php';
 
-    Config::load('rAPIdConfig.php');
+    Config::load('config/rAPId.php');
 
     try {
         $response = Router::resolve($_GET['url']);
