@@ -189,4 +189,14 @@
                 return [$value];
             }
         }
+
+        if (!function_exists('env')) {
+            function env($var_name, $default = null) {
+                if (!isset($_ENV[ $var_name ])) {
+                    return $default;
+                }
+
+                return getenv($var_name);
+            }
+        }
     }
