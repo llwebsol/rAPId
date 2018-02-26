@@ -1,3 +1,5 @@
+# This File Was copied from the rAPId Framework.
+# Any modifications you make to this file will be overwritten
 <IfModule mod_rewrite.c>
 
     RewriteEngine on
