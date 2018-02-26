@@ -12,14 +12,20 @@
         mkdir('config');
     }
 
-    $configurations = [
-        'rAPId',
-        'database'
+    $copy_files = [
+        // root dir
+        ''        => [
+            '.env.example'
+        ],
+        'config/' => [
+            'rAPId.php',
+            'database.php',
+            'database_listeners.php'
+        ]
     ];
-
-    foreach ($configurations as $config) {
-        if (!file_exists("config/$config.php")) {
-            copy($host_dir . "config_$config.php", "config/$config.php");
+    foreach ($copy_files as $dir => $files) {
+        if (!file_exists($dir . $file)) {
+            copy($host_dir . $file, $dir . $file);
         }
     }
 

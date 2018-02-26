@@ -1,10 +1,17 @@
 <?php
 
+    use EasyDb\Events\Event;
     use rAPId\Config\Config;
 
     return [
-        'main' => [
-            'db_type'                     => env('DB_TYPE'), // mysql, pgsql, sqlsrv, sqlite
+        /**
+         * Enter the configuration for each database your application will use
+         * The key (ie. 'primary') is used to fetch a DB helper with the given
+         * configuration (ie Db::getDB('primary'))
+         */
+
+        'primary' => [
+            'db_type'                     => env('DB_TYPE'),
             'host'                        => env('DB_HOST'),
             'db_name'                     => env('DB_NAME'),
             'port'                        => env('DB_PORT'),
@@ -32,8 +39,8 @@
         ],
         /*
           'secondary' => [
-          'db_type' => 'mysql',
+            'db_type' => 'mysql',
            ...
           ]
-        */
+            */
     ];
