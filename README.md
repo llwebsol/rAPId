@@ -13,7 +13,7 @@ a simple and minimalist framework for php APIs
 Add to your composer.json
 
     "require": {
-        "llwebsol/rapid": "dev-master"
+        "llwebsol/rapid": "^2.0"
     },
 
     "scripts": {
