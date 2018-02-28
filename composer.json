@@ -21,7 +21,7 @@
     ]
   },
   "require": {
-    "llwebsol/easy-db": "dev-master",
+    "llwebsol/easy-db": "^1.0",
     "vlucas/phpdotenv": "^2.4"
   },
   "require-dev": {
