@@ -4,7 +4,7 @@
 
     use EasyDb\Core\Config as EasyDbConfig;
     use EasyDb\Core\ConnectionPool;
-    use EasyDb\Core\DbInstance;
+    use EasyDb\Core\DB as EasyDb;
     use EasyDb\Events\Listeners;
     use rAPId\Config\Config;
 
@@ -30,7 +30,7 @@
         /**
          * @param string $key
          *
-         * @return DbInstance
+         * @return EasyDb
          */
         public static function getDB($key = 'main') {
             $config = Config::val("db.$key");
