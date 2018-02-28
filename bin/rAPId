@@ -24,8 +24,10 @@
         ]
     ];
     foreach ($copy_files as $dir => $files) {
-        if (!file_exists($dir . $file)) {
-            copy($host_dir . $file, $dir . $file);
+        foreach ($files as $file) {
+            if (!file_exists($dir . $file)) {
+                copy($host_dir . $file, $dir . $file);
+            }
         }
     }
 
