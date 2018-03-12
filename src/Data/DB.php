@@ -32,7 +32,7 @@
          *
          * @return EasyDb
          */
-        public static function getDB($key = 'main') {
+        public static function getDB($key = 'primary') {
             $config = Config::val("db.$key");
             $easy_db_config = new EasyDbConfig($config[ $key ]);
 
