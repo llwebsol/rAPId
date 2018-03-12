@@ -9,9 +9,7 @@
     use rAPId\Exceptions\InvalidUrlException;
     use rAPId\Routing\Router;
 
-    require 'vendor/autoload.php';
-
-    Config::load('config/rAPId.php');
+    require 'vendor/llwebsol/rapid/src/bootstrap.php';
 
     try {
         $response = Router::resolve($_GET['url']);

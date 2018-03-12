@@ -19,8 +19,7 @@
         ],
         'config/' => [
             'rAPId.php',
-            'database.php',
-            'database_listeners.php'
+            'database.php'
         ]
     ];
     foreach ($copy_files as $dir => $files) {

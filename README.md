@@ -215,7 +215,7 @@ You can now access an instance of EasyDB by calling the static helper
 
 
 #### Database Event Listeners:
-You can make use of the EasyDB event system by creating a class that implements the `EasyDb\Events\Listener` interface, then register that listener in your `config/database_listeners.php`
+You can make use of the EasyDB event system by creating a class that implements the `EasyDb\Events\Listener` interface, then register that listener in your `config/database.php`
 
 example:
 
