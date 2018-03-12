@@ -201,3 +201,66 @@ If you wish to serve an image, handle outputting that image yourself, and don't 
 The type of serialized output that your API returns is determined by the `output_serializer` variable in your `rAPIdConfig.php`
 
 Json and XML are currently supported. If you wish to output some other kind of data, you can write your own serializer that implements `rAPId\Data\Serialization\Serializer`, then feel free to submit a pull request!
+
+
+## Database
+rAPId uses the [llwebsol/EasyDB](https://github.com/llwebsol/EasyDB) package for simple database interactions
+
+a `.env.example` file should have been placed in your projects root directory. Copy this file to `.env`, then overwrite with your database credentials, and obviously, don't check this file in to your version control
+
+You can now access an instance of EasyDB by calling the static helper
+```
+    $db = DB::getDB();
+```
+
+
+#### Database Event Listeners:
+You can make use of the EasyDB event system by creating a class that implements the `EasyDb\Events\Listener` interface, then register that listener in your `config/database_listeners.php`
+
+example:
+
+ -if you create a Listener class for updating the `modified_user` for each database insert/update:
+```
+    'listeners' => [
+        ...
+        Event::BEFORE_SAVE  => [
+            MyModifiedUserListener::class
+        ],
+        ...
+    ]
+```
+
+
+#### Multiple Database Connections:
+if you need to connect to another database, add your new credentials into the .env
+
+example:
+```
+...
+SECONDARY_DB_HOST=mydb.path.com
+SECONDARY_DB_NAME=another_db
+
+SECONDARY_DB_USER=xyz
+SECONDARY_DB_PASSWORD=123
+```
+Then update your `config/database.php`
+```
+        'primary' => [
+            'db_type'                     => env('DB_TYPE','mysql'),
+            'host'                        => env('DB_HOST'),
+            'db_name'                     => env('DB_NAME'),
+            'port'                        => env('DB_PORT'),
+            'user'                        => env('DB_USER'),
+            'password'                    => env('DB_PASSWORD'),
+        ],
+
+        'secondary' => [
+            'db_type'                     => env('SECONDARY_DB_TYPE','mysql'),
+            'host'                        => env('SECONDARY_DB_HOST'),
+            'db_name'                     => env('SECONDARY_DB_NAME'),
+            'port'                        => env('SECONDARY_DB_PORT'),
+            'user'                        => env('SECONDARY_DB_USER'),
+            'password'                    => env('SECONDARY_DB_PASSWORD'),
+        ]
+
+```
