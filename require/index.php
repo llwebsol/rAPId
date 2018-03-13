@@ -17,6 +17,5 @@
     } catch (Exception $exception) {
         pr(['code' => $exception->getCode(), 'message' => $exception->getMessage()], get_class($exception));
     }
-
-
+    
     $response->output();
