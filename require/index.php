@@ -13,7 +13,12 @@
     try {
         $response = Router::resolve($_GET['url']);
     } catch (InvalidUrlException $exception) {
-        die_404();
+
+        http_response_code(404);
+        $error_page = \rAPId\Config\Config::val('error_404_page');
+        include "$error_page";
+        die;
+
     } catch (Exception $exception) {
         pr(['code' => $exception->getCode(), 'message' => $exception->getMessage()], get_class($exception));
     }
