@@ -29,32 +29,42 @@
         }
 
         private static function get_variable_text($var) {
-            switch (gettype($var)) {
-                case 'string':
-                    return self::string_text($var);
-                case 'integer':
-                case 'double':
-                    return self::number_text($var);
-                case 'boolean':
-                    return self::bool_text($var);
-                case 'NULL':
-                    return 'null';
-                default:
-                    return print_r($var, true);
+            $type = gettype($var);
+            if (method_exists(self::class, $type . '_text')) {
+                return self::{$type . '_text'}($var);
             }
+
+            return $type . ': ' . print_r($var, true);
         }
 
         private static function string_text($string) {
             return 'string: "' . $string . '"';
         }
 
-        private static function number_text($int) {
-            return 'number: ' . $int;
+        private static function integer_text($int) {
+            return 'integer: ' . $int;
         }
-        
-        private static function bool_text($bool) {
+
+        private static function double_text($double) {
+            return 'float: ' . $double;
+        }
+
+        private static function boolean_text($bool) {
             $txt_bool = $bool ? 'true' : 'false';
 
             return 'boolean: ' . $txt_bool;
         }
+
+        private static function NULL_text($null) {
+            return 'null';
+        }
+
+        private static function array_text($array) {
+            return print_r($array, true);
+        }
+
+        private static function object_text($object) {
+            return print_r($object, true);
+        }
+
     }
