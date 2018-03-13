@@ -216,4 +216,18 @@
                 return [$value];
             }
         }
+
+        if (!function_exists('die_404')) {
+            /**
+             * Display the default 404 page, with a 404 response code
+             * then die
+             *
+             */
+            function die_404() {
+                http_response_code(404);
+                $error_page = \rAPId\Config\Config::val('error_404_page');
+                include "$error_page";
+                die;
+            }
+        }
     }

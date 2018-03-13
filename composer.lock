@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "llwebsol/easy-db",
-            "version": "v1.0.0",
+            "version": "v1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/llwebsol/EasyDB.git",
-                "reference": "4520f104ed3f9adf18b499f3ad3aff80392c8844"
+                "reference": "6bfb731c0cc17f9a76d9c4e9f568641194b3f389"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/llwebsol/EasyDB/zipball/4520f104ed3f9adf18b499f3ad3aff80392c8844",
-                "reference": "4520f104ed3f9adf18b499f3ad3aff80392c8844",
+                "url": "https://api.github.com/repos/llwebsol/EasyDB/zipball/6bfb731c0cc17f9a76d9c4e9f568641194b3f389",
+                "reference": "6bfb731c0cc17f9a76d9c4e9f568641194b3f389",
                 "shasum": ""
             },
             "type": "library",
@@ -37,7 +37,7 @@
                 }
             ],
             "description": "A Wrapper for PDO",
-            "time": "2018-02-28T21:51:56+00:00"
+            "time": "2018-03-13T18:54:05+00:00"
         },
         {
             "name": "vlucas/phpdotenv",

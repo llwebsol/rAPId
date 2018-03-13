@@ -2,7 +2,9 @@
 
     namespace rAPId\Routing;
 
+    use EasyDb\Exceptions\DatabaseException;
     use rAPId\Exceptions\InvalidUrlException;
+    use rAPId\Exceptions\MissingControllerException;
     use rAPId\Foundation\Response;
     use ReflectionMethod;
 
@@ -12,7 +14,9 @@
          * @param $url
          *
          * @return Response
+         * @throws MissingControllerException
          * @throws InvalidUrlException
+         * @throws DatabaseException
          */
         public static function resolve($url) {
             $route = Route::parse($url);
@@ -23,8 +27,12 @@
 
                 $controller = new $controller();
                 $response = $controller->{$action}(...$args);
+            } catch (DatabaseException $ex) {
+                throw $ex;
+            } catch (InvalidUrlException $ex) {
+                throw $ex;
             } catch (\Exception $ex) {
-                throw new InvalidUrlException("Call Failed to [$url]. Make sure your DEFAULT_CONTROLLER is set", $ex->getCode(), $ex);
+                throw new MissingControllerException("Call Failed to [$url]. Make sure your DEFAULT_CONTROLLER is set", $ex->getCode(), $ex);
             }
 
             return new Response($response);

@@ -264,3 +264,23 @@ Then update your `config/database.php`
         ]
 
 ```
+
+## Other
+Throwing an `InvalidUrlException` will display your default 404 page.
+Once you have a default controller set up, all invalid routs will go through the index() in that class.
+If you don't wish something to be rendered for some random url, then consider throwing this exception in your default controllers index
+
+example:
+
+```
+    class Main extends Controller{
+        public function index(){
+            throw new InvalidURLException();
+        }
+
+        public function test($x){
+            return ['x' => $x];
+        }
+    }
+```
+my-site.com/xyz will return a 404 response, wile my-site.com/test will return a valid response

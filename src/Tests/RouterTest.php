@@ -40,7 +40,8 @@
          *
          * @runInSeparateProcess
          *
-         * @throws \rAPId\Exceptions\InvalidUrlException
+         * @throws \rAPId\Exceptions\MissingControllerException
+         * @throws \EasyDb\Exceptions\DatabaseException
          */
         public function testResolve($url, $get_params, $post_params, array $expected_response) {
             $_GET = $_POST = [];
