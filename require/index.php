@@ -1,7 +1,7 @@
 <?php
 
     /**
-     *  This File Was copied from the rAPId Framework.
+     *  This file is part of the rAPId Framework.
      *  Any modifications you make to this file will be overwritten
      */
 
