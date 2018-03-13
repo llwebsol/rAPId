@@ -3,19 +3,42 @@
     if (!function_exists('pr')) {
         /**
          * PR
-         * Prints data wrapped in pre tags. Perfect for reading arrays
+         * Print data for debugging
          *
-         * @param mixed $data
+         * @param mixed  $data
+         * @param string $identifier [optional]
          */
-        function pr($data) {
-            if (php_sapi_name() === 'cli') {
-                echo "\n";
-                print_r($data);
-                echo "\n";
-            } else {
-                echo "<pre style='font-size: 8pt; text-align: left; background-color: #ffffff;'>";
-                print_r($data);
-                echo "</pre>";
+        function pr($data, $identifier = '') {
+            echo "\n";
+            if (!empty($identifier)) {
+                echo(str_repeat('_', strlen($identifier)) . "_\n");
+                echo $identifier . " |\n============================================================================\n";
+            }
+
+            switch (gettype($data)) {
+                case 'string':
+                    echo 'string: "' . $data . '"';
+                    break;
+                case 'integer':
+                    echo 'integer: ' . $data;
+                    break;
+                case 'double':
+                    echo 'float: ' . $data;
+                    break;
+                case 'boolean':
+                    echo 'booloean: ' . ($data ? 'true' : 'false');
+                    break;
+                case 'NULL':
+                    echo 'null';
+                    break;
+                default:
+                    print_r($data);
+                    break;
+            }
+
+            echo "\n";
+            if (!empty($identifier)) {
+                echo "============================================================================\n";
             }
         }
     }
