@@ -1,44 +1,48 @@
 <?php
 
+    if (!function_exists('env')) {
+        /**
+         * Get an environment variable
+         * or a default if that variable is not set
+         *
+         * @param string $var_name
+         * @param mixed  $default
+         *
+         * @return mixed
+         */
+        function env($var_name, $default = null) {
+            if (!isset($_ENV[ $var_name ])) {
+                return $default;
+            }
+
+            return getenv($var_name);
+        }
+    }
+
+    if (!function_exists('is_dev')) {
+        /**
+         * Returns true if the current environment is development
+         *
+         * @return bool
+         */
+        function is_dev() {
+            $env = env('ENVIRONMENT', 'development');
+
+            return $env === 'development';
+        }
+    }
+
     if (!function_exists('pr')) {
         /**
          * PR
-         * Print data for debugging
+         * Print data for debugging IFF in Development Environment
          *
          * @param mixed  $data
          * @param string $identifier [optional]
          */
         function pr($data, $identifier = '') {
-            echo "\n";
-            if (!empty($identifier)) {
-                echo(str_repeat('_', strlen($identifier)) . "_\n");
-                echo $identifier . " |\n============================================================================\n";
-            }
-
-            switch (gettype($data)) {
-                case 'string':
-                    echo 'string: "' . $data . '"';
-                    break;
-                case 'integer':
-                    echo 'integer: ' . $data;
-                    break;
-                case 'double':
-                    echo 'float: ' . $data;
-                    break;
-                case 'boolean':
-                    echo 'booloean: ' . ($data ? 'true' : 'false');
-                    break;
-                case 'NULL':
-                    echo 'null';
-                    break;
-                default:
-                    print_r($data);
-                    break;
-            }
-
-            echo "\n";
-            if (!empty($identifier)) {
-                echo "============================================================================\n";
+            if (is_dev()) {
+                \rAPId\Debug\Output::variable($data, $identifier);
             }
         }
     }
@@ -210,16 +214,6 @@
                 }
 
                 return [$value];
-            }
-        }
-
-        if (!function_exists('env')) {
-            function env($var_name, $default = null) {
-                if (!isset($_ENV[ $var_name ])) {
-                    return $default;
-                }
-
-                return getenv($var_name);
             }
         }
     }
