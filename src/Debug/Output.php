@@ -33,9 +33,8 @@
                 case 'string':
                     return self::string_text($var);
                 case 'integer':
-                    return self::int_text($var);
                 case 'double':
-                    return self::float_text($var);
+                    return self::number_text($var);
                 case 'boolean':
                     return self::bool_text($var);
                 case 'NULL':
@@ -49,14 +48,10 @@
             return 'string: "' . $string . '"';
         }
 
-        private static function int_text($int) {
-            return 'integer: ' . $int;
+        private static function number_text($int) {
+            return 'number: ' . $int;
         }
-
-        private static function float_text($float) {
-            return 'float: ' . $float;
-        }
-
+        
         private static function bool_text($bool) {
             $txt_bool = $bool ? 'true' : 'false';
 
