@@ -36,19 +36,16 @@
             'trust_server_certificate'    => null,
             'wsid'                        => null
         ],
-        /*
-          'secondary' => [
-            'db_type' => 'mysql',
-           ...
-          ]
-            */
+
+
+        /**
+         * Add the fully qualified name
+         * of a class which implements EasyDb\Events\Listener
+         * to any of the following arrays in order to subscribe
+         * to the associated event
+         */
         'listeners' => [
-            /**
-             * Add the fully qualified name
-             * of a class which implements EasyDb\Events\Listener
-             * to any of the following arrays in order to subscribe
-             * to the associated event
-             */
+            
             Event::ON_ERROR => [],
 
             Event::BEFORE_QUERY => [],
