@@ -6,6 +6,7 @@
 
     copy($host_dir . '.htaccess', '.htaccess');
     copy($host_dir . 'index.php', 'index.php');
+    copy($host_dir . '.env.example', '.env.example');
 
     // Ensure config directory exists
     if (!is_dir('config')) {
@@ -13,10 +14,6 @@
     }
 
     $copy_files = [
-        // root dir
-        ''        => [
-            '.env.example'
-        ],
         'config/' => [
             'rAPId.php',
             'database.php'
