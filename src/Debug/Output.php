@@ -9,46 +9,57 @@
          * @param string $identifier
          */
         public static function variable($data, $identifier = '') {
-            echo "\n";
             if (!empty($identifier)) {
-                self::print_variable_with_title($data, $identifier);
+                $output = self::get_variable_text_with_title($data, $identifier);
             } else {
-                self::print_variable($data);
+                $output = self::get_variable_text($data);
             }
+            echo "\n$output\n";
         }
 
-        private static function print_variable_with_title($data, $title) {
+        private static function get_variable_text_with_title($data, $title) {
 
-            echo(str_repeat('_', strlen($title)) . "_\n");
-            echo $title . " |\n============================================================================\n";
-            self::print_variable($data);
+            $result = str_repeat('_', strlen($title)) . "_\n";
+            $result .= $title . " |\n";
+            $result .= "============================================================================\n";
+            $result .= self::get_variable_text($data);
+            $result .= "\n============================================================================";
 
-            echo "============================================================================\n";
+            return $result;
         }
 
-        private static function print_variable($data) {
-            switch (gettype($data)) {
+        private static function get_variable_text($var) {
+            switch (gettype($var)) {
                 case 'string':
-                    echo 'string: "' . $data . '"';
-                    break;
+                    return self::string_text($var);
                 case 'integer':
-                    echo 'integer: ' . $data;
-                    break;
+                    return self::int_text($var);
                 case 'double':
-                    echo 'float: ' . $data;
-                    break;
+                    return self::float_text($var);
                 case 'boolean':
-                    echo 'booloean: ';
-                    echo $data ? 'true' : 'false';
-                    break;
+                    return self::bool_text($var);
                 case 'NULL':
-                    echo 'null';
-                    break;
+                    return 'null';
                 default:
-                    print_r($data);
-                    break;
+                    return print_r($var, true);
             }
+        }
 
-            echo "\n";
+        private static function string_text($string) {
+            return 'string: "' . $string . '"';
+        }
+
+        private static function int_text($int) {
+            return 'integer: ' . $int;
+        }
+
+        private static function float_text($float) {
+            return 'float: ' . $float;
+        }
+
+        private static function bool_text($bool) {
+            $txt_bool = $bool ? 'true' : 'false';
+
+            return 'boolean: ' . $txt_bool;
         }
     }
