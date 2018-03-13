@@ -10,6 +10,11 @@
     $dotenv = new Dotenv\Dotenv($root);
     $dotenv->load();
 
+    // Display Errors when in development environment
+    if (env('ENVIRONMENT', 'development') === 'development') {
+        ini_set('display_errors', 1);
+    }
+
     Config::load('config/rAPId.php');
     Config::load('config/database.php', 'db');
 
