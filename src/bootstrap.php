@@ -19,7 +19,7 @@
     Config::load('config/database.php', 'db');
 
     // Register EasyDB Event Listeners
-    $listeners = Config::val('db.listeners');
+    $listeners = Config::val('db.listeners', []);
     foreach ($listeners as $event => $classes) {
         foreach ($classes as $listener) {
             if (!empty($listener)) {
