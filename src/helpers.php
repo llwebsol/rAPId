@@ -176,16 +176,16 @@
              * @return array
              */
             function get_object_as_array($obj) {
-                $array = (array)$obj;
-                foreach ($array as $key => $value) {
-                    // Private and protected property names contain "\0"
-                    // when cast to array. Discard them here
-                    if (strpos($key, "\0") !== false) {
-                        unset($array[ $key ]);
+                $result = [];
+                foreach ($obj as $key => $value) {
+                    if (is_object($value)) {
+                        $result[ $key ] = get_object_as_array($value);
+                    } else {
+                        $result[ $key ] = $value;
                     }
                 }
 
-                return $array;
+                return $result;
             }
         }
 
