@@ -42,14 +42,20 @@
         private static function getMethodSpecificArgs(Route $route) {
 
             $parameters = self::getControllerMethodParameters($route->getController(), $route->getAction());
-            $route_args = $route->getArgs();
-            $request_args = self::getRequestArgs();
+            $route_args = $route->getArgs(); // Args from the url ie www.your-site.com/controller/method/arg1/arg2
+            $request_args = self::getRequestArgs(); // GET or POST request args
 
             $ordered_arguments = [];
+
+            // Iterate through each of the accepted parameters for the controller
             foreach ($parameters as $parameter) {
 
-                $value = array_get($request_args, $parameter->name);
-                if (!array_key_exists($parameter->name, $request_args)) {
+                // Get value from request args, or fallback to default if one exists in the function definition
+                $value = array_get($request_args, $parameter->name, self::getDefaultParameterValue($parameter));
+
+                // If there were no request args for this parameter,
+                // use the next available route arg (if one exists)
+                if (!array_key_exists($parameter->name, $request_args) && count($route_args) > 0) {
                     $value = array_shift($route_args);
                 }
 
@@ -57,6 +63,10 @@
             }
 
             return $ordered_arguments;
+        }
+
+        private static function getDefaultParameterValue(\ReflectionParameter $parameter) {
+            return $parameter->isDefaultValueAvailable() ? $parameter->getDefaultValue() : null;
         }
 
         /**

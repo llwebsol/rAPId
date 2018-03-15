@@ -23,6 +23,13 @@
         public function anotherMethod() {
             return 'In Another Method';
         }
+
+        public function testDefaultValues($x = 76, $y = 'Y') {
+            return [
+                'x' => $x,
+                'y' => $y,
+            ];
+        }
     }
 
     class SomeOtherController implements Controller

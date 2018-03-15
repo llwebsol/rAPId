@@ -4,6 +4,8 @@
 
     use rAPId\Config\Config;
     use rAPId\Data\Serializer;
+    use rAPId\Foundation\Controller;
+    use rAPId\Routing\Route;
     use rAPId\Routing\Router;
 
     class RouterTest extends TestCase
@@ -39,9 +41,7 @@
          * @param array  $expected_response
          *
          * @runInSeparateProcess
-         *
          * @throws \rAPId\Exceptions\MissingControllerException
-         * @throws \EasyDb\Exceptions\DatabaseException
          */
         public function testResolve($url, $get_params, $post_params, array $expected_response) {
             $_GET = $_POST = [];
@@ -58,13 +58,65 @@
                 }
             }
 
+            $response = $this->getResponseAsArray($url);
+
+            $this->assertEquals($expected_response, $response);
+        }
+
+        /**
+         * @runInSeparateProcess
+         * @throws \rAPId\Exceptions\MissingControllerException
+         */
+        public function testDefaultParameterValues() {
+            $response = $this->getResponseAsArray('test_default_values');
+
+            $this->assertEquals(['x' => 76, 'y' => 'Y'], $response);
+        }
+
+        /**
+         * @runInSeparateProcess
+         * @throws \rAPId\Exceptions\MissingControllerException
+         */
+        public function testDefaultParameterOverrideWithGetRequest() {
+            $_SERVER['REQUEST_METHOD'] = 'GET';
+            $_GET = ['y' => 'OVERRIDE'];
+            $response = $this->getResponseAsArray('test_default_values');
+            $this->assertEquals(['x' => 76, 'y' => 'OVERRIDE'], $response);
+        }
+
+        /**
+         * @runInSeparateProcess
+         * @throws \rAPId\Exceptions\MissingControllerException
+         */
+        public function testDefaultParameterOverrideWithPOSTRequest() {
+            $_SERVER['REQUEST_METHOD'] = 'POST';
+            $_POST = ['y' => 'OVERRIDE'];
+            $response = $this->getResponseAsArray('test_default_values');
+            $this->assertEquals(['x' => 76, 'y' => 'OVERRIDE'], $response);
+        }
+
+        /**
+         * @runInSeparateProcess
+         * @throws \rAPId\Exceptions\MissingControllerException
+         */
+        public function testDefaultParameterOverrideWithURL() {
+            $response = $this->getResponseAsArray('test_default_values/OVERRIDE');
+            $this->assertEquals(['x' => 'OVERRIDE', 'y' => 'Y'], $response);
+        }
+
+        /**
+         * @param $url
+         *
+         * @return mixed
+         * @throws \rAPId\Exceptions\MissingControllerException
+         */
+        private function getResponseAsArray($url) {
             ob_start();
             Router::resolve($url)->output();
             $response = ob_get_clean();
 
             $serializer = Config::val('output_serializer');
-            $response = $serializer::deserialize($response);
 
-            $this->assertEquals($expected_response, $response);
+            return $serializer::deserialize($response);
         }
     }
