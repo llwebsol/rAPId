@@ -286,5 +286,4 @@ example:
 my-site.com/xyz will return a 404 response, wile my-site.com/test will return a valid response
 
 ### Initialization
-
-If you wish to add an initialization script to your project that runs before the index, you can add an `initialize.php` script to the root of your project
+rAPId also unpacks an initialize.php file into your root directory. You can put any initialization code in this file.

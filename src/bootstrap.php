@@ -6,10 +6,6 @@
     $root = getcwd();
     require $root . '/vendor/autoload.php';
 
-    if (file_exists($root . '/initialize.php')) {
-        require $root . '/initialize.php';
-    }
-
     // Load the .env into $_ENV
     $dotenv = new Dotenv\Dotenv($root);
     $dotenv->load();
@@ -30,4 +26,8 @@
                 Listeners::register($event, $listener);
             }
         }
+    }
+
+    if (file_exists($root . '/initialize.php')) {
+        require $root . '/initialize.php';
     }
