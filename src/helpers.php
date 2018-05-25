@@ -216,4 +216,18 @@
                 return [$value];
             }
         }
+
+        if (!function_exists('db')) {
+            /**
+             * Get an EasyDB instance for the given key
+             *
+             * @param string $key
+             *        this is the key used in your database config
+             *
+             * @return \EasyDb\Core\DB
+             */
+            function db($key = 'primary') {
+                return \rAPId\Data\DB::getDB($key);
+            }
+        }
     }
