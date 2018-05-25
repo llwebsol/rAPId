@@ -208,9 +208,9 @@ rAPId uses the [llwebsol/EasyDB](https://github.com/llwebsol/EasyDB) package for
 
 a `.env.example` file should have been placed in your projects root directory. Copy this file to `.env`, then overwrite with your database credentials, and obviously, don't check this file in to your version control
 
-You can now access an instance of EasyDB by calling the static helper
+You can now access an instance of EasyDB by calling the helper function
 ```
-    $db = DB::getDB();
+    $db = db();
 ```
 
 
@@ -263,6 +263,13 @@ Then update your `config/database.php`
             'password'                    => env('SECONDARY_DB_PASSWORD'),
         ]
 
+```
+
+Note that the `db()` helper function will return a connection to your primary database by default.
+
+to connect to "secondary" in the above example:
+```
+$db = db('secondary');
 ```
 
 ## Other
