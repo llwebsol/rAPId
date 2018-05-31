@@ -12,6 +12,7 @@
 
     try {
         $response = Router::resolve($_GET['url']);
+        $response->output();
     } catch (InvalidUrlException $exception) {
 
         http_response_code(404);
@@ -22,5 +23,3 @@
     } catch (Exception $exception) {
         pr(['code' => $exception->getCode(), 'message' => $exception->getMessage()], get_class($exception));
     }
-    
-    $response->output();
