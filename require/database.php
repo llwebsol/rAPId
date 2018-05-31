@@ -21,7 +21,7 @@
             'unix_socket'                 => null,
             'charset'                     => 'utf8mb4',
 
-            //sqlsrv specific
+            // sqlsrv specific
             'app'                         => null,
             'connection_pooling'          => null,
             'encrypt'                     => null,
@@ -34,7 +34,10 @@
             'trace_on'                    => null,
             'transaction_isolation'       => null,
             'trust_server_certificate'    => null,
-            'wsid'                        => null
+            'wsid'                        => null,
+
+            // sqlite specific
+            'path'                        => null,
         ],
 
 
