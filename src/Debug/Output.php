@@ -2,6 +2,8 @@
 
     namespace rAPId\Debug;
 
+    use bar\baz\source_with_namespace;
+
     class Output
     {
         /**
@@ -64,7 +66,17 @@
         }
 
         private static function object_text($object) {
+            if (is_a($object, \Generator::class)) {
+                return self::generator_text($object);
+            }
+
             return print_r($object, true);
         }
 
+        private static function generator_text($generator) {
+            $output = print_r(iterator_to_array($generator), true);
+            $output = implode('<< Generator >>', explode('Array', $output, 2));
+
+            return $output;
+        }
     }
