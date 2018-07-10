@@ -3,6 +3,9 @@
     use EasyDb\Events\Listeners;
     use rAPId\Config\Config;
 
+    $root = getcwd();
+    require $root . '/vendor/autoload.php';
+
     // Display Errors when in development environment
     // Otherwise, Log errors/exceptions
     if (is_dev()) {
@@ -12,9 +15,6 @@
         set_error_handler($handler . '::logError');
         set_exception_handler($handler . '::logException');
     }
-
-    $root = getcwd();
-    require $root . '/vendor/autoload.php';
 
     // Load the .env into $_ENV
     $dotenv = new Dotenv\Dotenv($root);
