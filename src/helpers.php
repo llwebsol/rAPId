@@ -11,11 +11,13 @@
          * @return mixed
          */
         function env($var_name, $default = null) {
-            if (!isset($_ENV[ $var_name ])) {
+            $value = getenv($var_name);
+
+            if (is_null($value)) {
                 return $default;
             }
 
-            return getenv($var_name);
+            return $value;
         }
     }
 
