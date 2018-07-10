@@ -20,6 +20,4 @@
         include "$error_page";
         die;
 
-    } catch (Exception $exception) {
-        pr(['code' => $exception->getCode(), 'message' => $exception->getMessage()], get_class($exception));
     }

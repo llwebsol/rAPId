@@ -4,8 +4,13 @@
     use rAPId\Config\Config;
 
     // Display Errors when in development environment
+    // Otherwise, Log errors/exceptions
     if (is_dev()) {
         ini_set('display_errors', 1);
+    } else {
+        $handler = Config::val('error_logger', \rAPId\Debug\ServerLog::class);
+        set_error_handler($handler . '::logError');
+        set_exception_handler($handler . '::logException');
     }
 
     $root = getcwd();

@@ -29,4 +29,17 @@
 
         'output_serializer' => \rAPId\Data\Serialization\JsonSerializer::class,
 
+
+        /**
+         * The class that will handle the logging for all errors/exceptions that occur
+         * outside of the development environment
+         *
+         * This class must implement the \rAPId\Debug\Logger interface
+         */
+        'error_logger'      => \rAPId\Debug\ServerLog::class,
+
+        /**
+         * path to the folder in which to keep the log files from the ServerLog
+         */
+        'log_path'          => 'logs/'
     ];

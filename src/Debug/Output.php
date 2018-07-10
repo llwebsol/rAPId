@@ -2,8 +2,6 @@
 
     namespace rAPId\Debug;
 
-    use bar\baz\source_with_namespace;
-
     class Output
     {
         /**
