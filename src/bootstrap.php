@@ -5,6 +5,7 @@
 
     $root = getcwd();
     require $root . '/vendor/autoload.php';
+    Config::load('config/rAPId.php');
 
     // Display Errors when in development environment
     // Otherwise, Log errors/exceptions
@@ -12,15 +13,14 @@
         ini_set('display_errors', 1);
     } else {
         $handler = Config::val('error_logger', \rAPId\Debug\ServerLog::class);
-        set_error_handler($handler . '::logError');
-        set_exception_handler($handler . '::logException');
+        set_error_handler([$handler, 'logError']);
+        set_exception_handler([$handler, 'logException']);
     }
 
     // Load the .env into $_ENV
     $dotenv = new Dotenv\Dotenv($root);
     $dotenv->load();
 
-    Config::load('config/rAPId.php');
     Config::load('config/database.php', 'db');
 
     // Register EasyDB Event Listeners
