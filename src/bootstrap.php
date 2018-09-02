@@ -7,6 +7,11 @@
     require $root . '/vendor/autoload.php';
     Config::load('config/rAPId.php');
 
+
+    // Load the .env into $_ENV
+    $dotenv = new Dotenv\Dotenv($root);
+    $dotenv->load();
+
     // Display Errors when in development environment
     // Otherwise, Log errors/exceptions
     if (is_dev()) {
@@ -16,10 +21,6 @@
         set_error_handler([$handler, 'logError']);
         set_exception_handler([$handler, 'logException']);
     }
-
-    // Load the .env into $_ENV
-    $dotenv = new Dotenv\Dotenv($root);
-    $dotenv->load();
 
     Config::load('config/database.php', 'db');
 
