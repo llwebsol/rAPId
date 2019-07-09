@@ -22,7 +22,8 @@
   },
   "require": {
     "llwebsol/easy-db": "^1.0",
-    "vlucas/phpdotenv": "^2.4"
+    "vlucas/phpdotenv": "^2.4",
+    "php": "^7.1.0"
   },
   "require-dev": {
     "phpunit/phpunit": "^6"
