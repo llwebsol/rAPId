@@ -9,8 +9,11 @@
 
 
     // Load the .env into $_ENV
-    $dotenv = new Dotenv\Dotenv($root);
-    $dotenv->load();
+    if (file_exists($root . '/.env')) {
+        $dotenv = new Dotenv\Dotenv($root);
+        $dotenv->load();
+    }
+
 
     // Display Errors when in development environment
     // Otherwise, Log errors/exceptions
