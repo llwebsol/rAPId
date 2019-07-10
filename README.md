@@ -13,7 +13,7 @@ a simple and minimalist framework for php APIs
 Add to your composer.json
 
     "require": {
-        "llwebsol/rapid": "^2.0"
+        "llwebsol/rapid": "^3.0"
     },
 
     "scripts": {
@@ -22,9 +22,14 @@ Add to your composer.json
 
 Now run `composer update` and the necessary files should be automatically added to your projects root directory.
 
+### Docker
+a default Dockerfile and docker-compose.yml will have been added to your root directory. You may edit these as needed, or spin up the default Docker environment with `docker-compose up`. Your app will be available on `localhost:5000`
+
+
+### Controllers
 Add a new file to the new `Controllers` directory that was added (it may be in src/Controllers)
 
-### Example default controller
+#### Example default controller
 **(src/Controllers/Main.php)**:
 ```
     <?php
