@@ -15,7 +15,9 @@
 
     $copy_files = [
         ''        => [
-            'initialize.php'
+            'initialize.php',
+            'Dockerfile',
+            'docker-compose.yml'
         ],
         'config/' => [
             'rAPId.php',
