@@ -232,4 +232,9 @@
                 return \rAPId\Data\DB::getDB($key);
             }
         }
+
+        function rAPId_bootstrap()
+        {
+            require 'bootstrap.php';
+        }
     }

@@ -4,7 +4,6 @@
     use rAPId\Config\Config;
 
     $root = getcwd();
-    require $root . '/vendor/autoload.php';
     Config::load('config/rAPId.php');
 
 

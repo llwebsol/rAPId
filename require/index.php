@@ -8,7 +8,8 @@
     use rAPId\Exceptions\InvalidUrlException;
     use rAPId\Routing\Router;
 
-    require 'vendor/llwebsol/rapid/src/bootstrap.php';
+    require 'vendor/autoload.php';
+    rAPId_bootstrap();
 
     try {
         $response = Router::resolve($_GET['url']);
