@@ -34,8 +34,9 @@
 
     // Create the Controllers directory
 	// If this projects has a src/ directory it should be in there
-    if (is_dir('src') && !is_dir('src/Controllers')) {
+    if (!is_dir('src')) {
+        mkdir('src');
+    }
+    if (!is_dir('src/Controllers')) {
         mkdir('src/Controllers');
-    } else if (!is_dir('src') && !is_dir('Controllers')) {
-        mkdir('Controllers');
     }
