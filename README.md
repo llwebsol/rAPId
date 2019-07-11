@@ -10,16 +10,27 @@
 a simple and minimalist framework for php APIs
 
 ## Getting Started
-Add to your composer.json
+To create a project called `YourProject`:
+1. Create an empty directory for your project and cd into it
+2. set up your project with `$ composer init` ( [requires composer][https://getcomposer.org/download/] ).
 
+    
+3. Add to your composer.json
+```
     "require": {
         "llwebsol/rapid": "^3.0"
     },
 
     "scripts": {
         "post-update-cmd": "vendor/bin/rAPId"
+    },
+    
+    "autoload": {
+        "psr-4": {
+            "YourProject\\": "src/"
+        }
     }
-
+```
 Now run `composer update` and the necessary files should be automatically added to your projects root directory.
 
 ### Docker
