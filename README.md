@@ -12,7 +12,7 @@ a simple and minimalist framework for php APIs
 ## Getting Started
 To create a project called `YourProject`:
 1. Create an empty directory for your project and cd into it
-2. set up your project with `$ composer init` ( [requires composer][https://getcomposer.org/download/] ).
+2. set up your project with `$ composer init` [requires composer](https://getcomposer.org/download/).
 
     
 3. Add to your composer.json
